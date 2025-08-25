@@ -8,5 +8,6 @@ data class Task(
     val name: String,
     val description: String,
     val dueDate: Date,  // Now using Date type
+    val assignedTo: String,
     val color: Int
 ) : Serializable

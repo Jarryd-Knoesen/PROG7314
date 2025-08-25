@@ -31,6 +31,7 @@ class Home : AppCompatActivity() {
                 "Deploy Update",
                 "Push latest version to production",
                 getDate(2025, 8, 14),
+                "Jarryd",
                 Color.parseColor("#28A745") // Green
             ),
             Task(
@@ -38,6 +39,7 @@ class Home : AppCompatActivity() {
                 "Server Backup",
                 "Perform full backup of database and application files",
                 getDate(2025, 8, 15),
+                "Jarryd",
                 Color.parseColor("#007BFF") // Blue
             ),
             Task(
@@ -45,6 +47,7 @@ class Home : AppCompatActivity() {
                 "Fix Login Bug",
                 "Investigate and resolve user login timeout issue",
                 getDate(2025, 8, 16),
+                "Jarryd",
                 Color.parseColor("#007BFF") // Blue
             ),
             Task(
@@ -52,6 +55,7 @@ class Home : AppCompatActivity() {
                 "Set Up Workstations",
                 "Prepare and configure laptops for new employees",
                 getDate(2025, 8, 17),
+                "Jarryd",
                 Color.parseColor("#DC3545") // Red
             ),
             Task(
@@ -59,6 +63,7 @@ class Home : AppCompatActivity() {
                 "Network Audit",
                 "Review firewall rules and security settings",
                 getDate(2025, 8, 18),
+                "Jarryd",
                 Color.parseColor("#B0B0B0") // Gray
             )
         ).sortedBy { it.dueDate } // sorts the tasks by earliest date
@@ -70,6 +75,8 @@ class Home : AppCompatActivity() {
         // Gets ID of the menu button and the drawer layout
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLoyout)
         val btnMenu = findViewById<Button>(R.id.btnMenu)
+
+        val btnTasks = findViewById<Button>(R.id.btnTasks)
 
         // Gets ID of the menu items
         val smProfile = findViewById<TextView>(R.id.smProfile)
@@ -91,6 +98,11 @@ class Home : AppCompatActivity() {
         smEditTasks.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
+
+        btnTasks.setOnClickListener {
+            startActivity(Intent(this, TaskOverview::class.java))
+        }
+
     }
 
     private fun getDate(year: Int, month: Int, day: Int): java.util.Date {
