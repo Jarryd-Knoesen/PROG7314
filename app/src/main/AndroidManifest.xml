@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PROG7314_Mobile_App_V2">
         <activity
+            android:name=".TaskOverview"
+            android:exported="false" />
+        <activity
             android:name=".Home"
             android:exported="false" />
         <activity
