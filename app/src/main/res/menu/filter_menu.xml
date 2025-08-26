@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/filter_all" android:title="All Tasks"/>
+        <item android:id="@+id/filter_todo" android:title="To Do"/>
+        <item android:id="@+id/filter_doing" android:title="Doing"/>
+        <item android:id="@+id/filter_completed" android:title="Completed"/>
+        <item android:id="@+id/filter_issue" android:title="Issue"/>
+    </group>
+</menu>

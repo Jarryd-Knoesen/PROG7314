@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.prog7314_mobile_app_v2.adapters.TaskAdapter
 import com.example.prog7314_mobile_app_v2.models.Task
+import com.example.prog7314_mobile_app_v2.models.TaskRepository
 import java.util.Calendar
 
 class Home : AppCompatActivity() {
@@ -25,48 +26,7 @@ class Home : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         // Temp list of tasks
-        val tasks = listOf (
-            Task(
-                "T1",
-                "Deploy Update",
-                "Push latest version to production",
-                getDate(2025, 8, 14),
-                "Jarryd",
-                Color.parseColor("#28A745") // Green
-            ),
-            Task(
-                "T2",
-                "Server Backup",
-                "Perform full backup of database and application files",
-                getDate(2025, 8, 15),
-                "Jarryd",
-                Color.parseColor("#007BFF") // Blue
-            ),
-            Task(
-                "T3",
-                "Fix Login Bug",
-                "Investigate and resolve user login timeout issue",
-                getDate(2025, 8, 16),
-                "Jarryd",
-                Color.parseColor("#007BFF") // Blue
-            ),
-            Task(
-                "T4",
-                "Set Up Workstations",
-                "Prepare and configure laptops for new employees",
-                getDate(2025, 8, 17),
-                "Jarryd",
-                Color.parseColor("#DC3545") // Red
-            ),
-            Task(
-                "T5",
-                "Network Audit",
-                "Review firewall rules and security settings",
-                getDate(2025, 8, 18),
-                "Jarryd",
-                Color.parseColor("#B0B0B0") // Gray
-            )
-        ).sortedBy { it.dueDate } // sorts the tasks by earliest date
+        val tasks = TaskRepository.tasks.sortedBy { it.dueDate }
 
         val recyclerView = findViewById<RecyclerView>(R.id.taskRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -76,7 +36,7 @@ class Home : AppCompatActivity() {
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLoyout)
         val btnMenu = findViewById<Button>(R.id.btnMenu)
 
-        val btnTasks = findViewById<Button>(R.id.btnTasks)
+        val btnTasks = findViewById<TextView>(R.id.smTaskOverview)
 
         // Gets ID of the menu items
         val smProfile = findViewById<TextView>(R.id.smProfile)
