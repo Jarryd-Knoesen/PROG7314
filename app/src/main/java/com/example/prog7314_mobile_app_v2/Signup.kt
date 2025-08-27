@@ -44,13 +44,13 @@ class Signup : AppCompatActivity() {
             val surname = surnameInput.text.toString()
             val phoneNumber = phoneNumberInput.text.toString()
 
-            if (firstName.isEmpty()) {
-                firstNameInput.error = "Please enter your first name"
+            if (!isValidName(firstName)) {
+                firstNameInput.error = "Please enter your first name\nYour name cannot contain a number!!!"
                 return@setOnClickListener
             }
 
-            if (surname.isEmpty()) {
-                surnameInput.error = "Please enter your surname"
+            if (!isValidName(surname)) {
+                surnameInput.error = "Please enter your surname\nYour name cannot contain a number!!!"
                 return@setOnClickListener
             }
 
@@ -74,6 +74,10 @@ class Signup : AppCompatActivity() {
         }
     }
 
+    fun isValidName(name: String): Boolean {
+        return name.isNotEmpty() && name.all { it.isLetter() }
+    }
+
     fun isValidEmail(email: String): Boolean {
         return email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
@@ -86,7 +90,5 @@ class Signup : AppCompatActivity() {
     fun isValidPhoneNumber(phoneNumber: String): Boolean {
         val regex = "^\\d{10}$"
         return phoneNumber.matches(regex.toRegex())
-
-
     }
 }
