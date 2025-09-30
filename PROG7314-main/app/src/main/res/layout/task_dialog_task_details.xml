@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/dialogTaskName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Task Name"
+        android:textStyle="bold"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/dialogTaskDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/dialogTaskDueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Due Date"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/dialogTaskAssignedTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Assigned To"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/dialogTaskStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Task Status"
+        android:layout_marginTop="8dp"/>
+</LinearLayout>

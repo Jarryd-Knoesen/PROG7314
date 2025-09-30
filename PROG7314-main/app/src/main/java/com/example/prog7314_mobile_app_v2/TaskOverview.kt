@@ -53,10 +53,10 @@ class TaskOverview : AppCompatActivity() {
 
     private fun applyFilter(menuItem: MenuItem) {
         val filtered = when (menuItem.itemId) {
-            R.id.filter_todo -> taskList.filter { it.color == 0xFFB0B0B0.toInt() }
-            R.id.filter_doing -> taskList.filter { it.color == 0xFF007BFF.toInt() }
-            R.id.filter_completed -> taskList.filter { it.color == 0xFF28A745.toInt() }
-            R.id.filter_issue -> taskList.filter { it.color == 0xFFDC3545.toInt() }
+            R.id.filter_todo -> taskList.filter { it.colorStatus == 0xFFB0B0B0.toInt() }
+            R.id.filter_doing -> taskList.filter { it.colorStatus == 0xFF007BFF.toInt() }
+            R.id.filter_completed -> taskList.filter { it.colorStatus == 0xFF28A745.toInt() }
+            R.id.filter_issue -> taskList.filter { it.colorStatus == 0xFFDC3545.toInt() }
             else -> taskList
         }
         adapter = TaskOverviewAdapter(filtered)

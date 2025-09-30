@@ -17,8 +17,10 @@ import com.example.prog7314_mobile_app_v2.models.Task
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class TaskAdapter (private val tasks: List<Task>, private val context: Context) :
-    RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter (
+    private val tasks: List<Task>,
+    private val onTaskClick: (Task) -> Unit
+) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
@@ -40,45 +42,14 @@ class TaskAdapter (private val tasks: List<Task>, private val context: Context) 
         holder.taskName.text = task.name
         holder.taskDueDate.text = "Due: ${dateFormat.format(task.dueDate)}"
 //        holder.taskDueDate.text = dateFormat.format(task.dueDate)
-        holder.taskColor.setCardBackgroundColor(task.color)
+        holder.taskColor.setCardBackgroundColor(task.colorStatus)
         holder.taskArrow.text = "→"
 
-        // Set click listener for the task item
         holder.itemView.setOnClickListener {
-            showTaskDialog(task)
+            onTaskClick(task)
         }
     }
 
     override fun getItemCount(): Int = tasks.size
-
-    private fun showTaskDialog(task: Task) {
-        // Determines status based on the color
-        val status = when (task.color) {
-            Color.parseColor("#28A745") -> "Complete" // Green
-            Color.parseColor("#007BFF") -> "In Progress" // Blue
-            Color.parseColor("#DC3545") -> "Issue" // Red
-            Color.parseColor("#B0B0B0") -> "To Do" // Gray
-            else -> "Unknown"
-        }
-
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle(task.name)
-        builder.setMessage(
-            "Description: ${task.description}\n\n" +
-                    "Due: ${dateFormat.format(task.dueDate)}\n\n" +
-                    "Status: $status\n\n" +
-                    "Task ID: ${task.taskID}"
-        )
-        builder.setPositiveButton("Edit") { dialog, _ ->
-
-            dialog.dismiss()
-        }
-
-
-        builder.setNegativeButton("Close") { dialog, _ ->
-            dialog.dismiss()
-        }
-        builder.show()
-    }
 
 }

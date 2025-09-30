@@ -39,7 +39,7 @@ class TaskOverviewAdapter(private val tasks: List<Task>) :
         holder.taskDescription.text = task.description
         holder.taskDocs.text = "📄"
 
-        holder.taskStatus.text = when (task.color) {
+        holder.taskStatus.text = when (task.colorStatus) {
             Color.parseColor("#28A745") -> "Completed"
             Color.parseColor("#007BFF") -> "Doing"
             Color.parseColor("#DC3545") -> "Issue"

@@ -9,5 +9,7 @@ data class Task(
     val description: String,
     val dueDate: Date,  // Now using Date type
     val assignedTo: String,
-    val color: Int
+    val colorStatus: Int,
+    val status: String,
+    val projectID: String // Links to a project
 ) : Serializable
