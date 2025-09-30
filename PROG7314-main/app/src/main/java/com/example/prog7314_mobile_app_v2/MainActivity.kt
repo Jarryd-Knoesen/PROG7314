@@ -33,43 +33,44 @@ class MainActivity : AppCompatActivity() {
 
         // Email/Password login
         loginButton.setOnClickListener {
-            val email = emailField.text.toString()
-            val password = passwordField.text.toString()
-
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                auth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(this, Home::class.java))
-                            finish()
-                        } else {
-                            val exception = task.exception
-                            // Check if the email is registered with another provider
-                            if (exception is com.google.firebase.auth.FirebaseAuthInvalidUserException) {
-                                Toast.makeText(
-                                    this,
-                                    "No account found with this email. Try signing up.",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            } else if (exception is com.google.firebase.auth.FirebaseAuthUserCollisionException) {
-                                Toast.makeText(
-                                    this,
-                                    "This email is already registered with Google. Please use Google Sign-In.",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            } else {
-                                Toast.makeText(
-                                    this,
-                                    "Login failed: ${exception?.message}",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        }
-                    }
-            } else {
-                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
-            }
+            startActivity(Intent(this, Home::class.java))
+//            val email = emailField.text.toString()
+//            val password = passwordField.text.toString()
+//
+//            if (email.isNotEmpty() && password.isNotEmpty()) {
+//                auth.signInWithEmailAndPassword(email, password)
+//                    .addOnCompleteListener { task ->
+//                        if (task.isSuccessful) {
+//                            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+//                            startActivity(Intent(this, Home::class.java))
+//                            finish()
+//                        } else {
+//                            val exception = task.exception
+//                            // Check if the email is registered with another provider
+//                            if (exception is com.google.firebase.auth.FirebaseAuthInvalidUserException) {
+//                                Toast.makeText(
+//                                    this,
+//                                    "No account found with this email. Try signing up.",
+//                                    Toast.LENGTH_LONG
+//                                ).show()
+//                            } else if (exception is com.google.firebase.auth.FirebaseAuthUserCollisionException) {
+//                                Toast.makeText(
+//                                    this,
+//                                    "This email is already registered with Google. Please use Google Sign-In.",
+//                                    Toast.LENGTH_LONG
+//                                ).show()
+//                            } else {
+//                                Toast.makeText(
+//                                    this,
+//                                    "Login failed: ${exception?.message}",
+//                                    Toast.LENGTH_LONG
+//                                ).show()
+//                            }
+//                        }
+//                    }
+//            } else {
+//                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+//            }
         }
 
         // Navigate to Signup

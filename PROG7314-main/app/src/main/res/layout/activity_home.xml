@@ -2,72 +2,26 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawerLoyout"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Home">
 
     <!-- Main Content -->
     <LinearLayout
+        android:id="@+id/contentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/topButtonLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="25dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <Button
-                android:id="@+id/btnMenu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginVertical="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:backgroundTint="@android:color/holo_blue_light"
-                android:padding="12dp"
-                android:stateListAnimator="@null"
-                android:text="Menu" />
-
-            <Button
-                android:id="@+id/btnTasks"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginVertical="5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:backgroundTint="@android:color/holo_green_light"
-                android:padding="12dp"
-                android:stateListAnimator="@null"
-                android:text="My Tasks" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginVertical="5dp"
-            android:text="My Tasks"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/taskRecyclerView"
+        <!-- Fragment container -->
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:paddingVertical="5dp" />
-
+            android:fitsSystemWindows="true"
+            />
     </LinearLayout>
 
     <!-- Side Menu -->
@@ -92,10 +46,10 @@
             android:padding="8dp"/>
 
         <TextView
-            android:id="@+id/smEditTasks"
+            android:id="@+id/smProjects"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit Tasks"
+            android:text="Projects"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:padding="8dp"/>
