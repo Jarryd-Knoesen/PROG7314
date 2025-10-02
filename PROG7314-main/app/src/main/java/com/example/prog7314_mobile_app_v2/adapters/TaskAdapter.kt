@@ -18,16 +18,19 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 class TaskAdapter (
-    private val tasks: List<Task>,
+    private var tasks: List<Task>,
     private val onTaskClick: (Task) -> Unit
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
+    fun updateTasks(newTasks: List<Task>) {
+        tasks = newTasks
+        notifyDataSetChanged()
+    }
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
     class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val taskName: TextView = itemView.findViewById(R.id.taskName)
         val taskColor: CardView = itemView.findViewById(R.id.taskColor)
-        val taskArrow: TextView = itemView.findViewById(R.id.taskArrow)
         val taskDueDate: TextView = itemView.findViewById(R.id.taskDueDate)
     }
 
@@ -43,7 +46,6 @@ class TaskAdapter (
         holder.taskDueDate.text = "Due: ${dateFormat.format(task.dueDate)}"
 //        holder.taskDueDate.text = dateFormat.format(task.dueDate)
         holder.taskColor.setCardBackgroundColor(task.colorStatus)
-        holder.taskArrow.text = "→"
 
         holder.itemView.setOnClickListener {
             onTaskClick(task)

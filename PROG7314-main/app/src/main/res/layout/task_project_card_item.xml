@@ -13,20 +13,30 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/projectName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Project Name"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textSize="16sp"
+                android:textColor="#000"/>
+
+            <ImageButton
+                android:id="@+id/btnDeleteProject"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@android:drawable/ic_menu_delete"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Delete Project" />
         </LinearLayout>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>
