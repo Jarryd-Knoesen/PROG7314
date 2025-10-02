@@ -11,8 +11,18 @@ import com.example.prog7314_mobile_app_v2.models.Task
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class TaskOverviewAdapter(private val tasks: List<Task>) :
+class TaskOverviewAdapter(private var tasks: List<Task>) :
     RecyclerView.Adapter<TaskOverviewAdapter.TaskViewHolder>() {
+
+    fun updateList(newList: List<Task>){
+        tasks = newList.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    fun updateSearchList(newList: List<Task>) {
+        tasks = newList
+        notifyDataSetChanged()
+    }
 
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 

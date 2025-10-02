@@ -45,7 +45,7 @@ class Home : AppCompatActivity() {
 
         // Menu Items click listeners
         smProfile.setOnClickListener {
-//            replaceFragment()
+            replaceFragment(FragmentProfile())
             drawerLayout.closeDrawer(GravityCompat.START)
         }
         smProjects.setOnClickListener {

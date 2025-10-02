@@ -42,17 +42,9 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/taskColor"
-            android:layout_width="40dp"
+            android:layout_width="80dp"
             android:layout_height="match_parent"
             app:cardElevation="0dp"
             app:cardBackgroundColor="#4BF003" />
-
-        <TextView
-            android:id="@+id/taskArrow"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="→"
-            android:textSize="25sp"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
