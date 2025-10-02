@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PROG7314_Mobile_App_V2</string>
+    <string name="default_web_client_id">78868235973-tq3valdt42aqugek55c3rjhgrgjqa9kg.apps.googleusercontent.com</string>
+
+    <!-- Home -->
+    <string name="sm_profile">Profiel</string>
+    <string name="sm_projects">Projekte</string>
+
+    <!-- Main -->
+    <string name="login_title">Teken Aan</string>
+    <string name="email_label">E-pos:</string>
+    <string name="email_hint">Voer e-pos hier in</string>
+    <string name="password_label">Wagwoord:</string>
+    <string name="password_hint">Voer wagwoord hier in</string>
+    <string name="no_account">Het jy nog geen rekening nie?</string>
+    <string name="signup">Teken Aan</string>
+    <string name="login_button">Teken Aan</string>
+    <string name="google_login">Teken aan met Google</string>
+
+    <!-- MainActivity - Login -->
+    <string name="login_successful">Teken aan suksesvol</string>
+    <string name="login_no_account_found_error">Geen rekening gevind met hierdie e-pos nie. Probeer teken aan.</string>
+    <string name="login_email_exists_error">Hierdie e-pos is reeds geregistreer met Google. Gebruik asseblief Google-aanmelding.</string>
+    <string name="login_failed">Teken aan het misluk:</string>
+    <string name="login_fields_empty_error">Voer asseblief e-pos en wagwoord in</string>
+    <string name="google_sign_in_successful">Google-aanmelding suksesvol</string>
+    <string name="google_signin_failed">Google-aanmelding het misluk</string>
+
+    <!-- Signup -->
+    <string name="signup_title">Registreer</string>
+    <string name="first_name_label">Voornaam:</string>
+    <string name="first_name_hint">Voer voornaam in</string>
+    <string name="surname_label">Van:</string>
+    <string name="surname_hint">Voer van hier in</string>
+    <string name="phone_label">Telefoonnommer:</string>
+    <string name="phone_hint">Voer telefoonnommer hier in</string>
+    <string name="already_have_account">Het jy reeds \'n rekening?</string>
+    <string name="login">Teken Aan</string>
+    <string name="signup_button">Registreer</string>
+    <string name="google_signup">Registreer met Google</string>
+
+    <!-- SignupActivity - Signup -->
+    <string name="signup_name_field_empty">Voer voornaam in</string>
+    <string name="signup_surname_field_empty">Voer van in</string>
+    <string name="signup_phone_field_error">Voer \'n geldige telefoonnommer in</string>
+    <string name="signup_email_field_error">Voer \'n geldige e-pos in</string>
+    <string name="signup_password_field_error">Wagwoord moet ten minste 6 karakters hê</string>
+    <string name="signup_successful">Registrasie suksesvol</string>
+    <string name="signup_failed">Registrasie het misluk:</string>
+    <string name="signup_successful_login">Registrasie suksesvol. Teken asseblief aan met Google.</string>
+    <string name="signup_google_failed">Google-aanmelding het misluk</string>
+    <string name="signup_google_sign_in_error">Google-aanmeldingsfout:</string>
+
+    <!-- Add Project -->
+    <string name="enter_project_name">Voer die projeknaam in:</string>
+    <string name="project_name_hint">Naam</string>
+    <string name="create_project">Skep Projek</string>
+
+    <!-- Profile -->
+    <string name="settings">Instellings</string>
+
+    <!-- Project Tasks View -->
+    <string name="add_member">Voeg Lid by</string>
+    <string name="task_overview">Taak Oorsig</string>
+    <string name="add_task">Voeg Taak by</string>
+    <string name="your_assigned_tasks">Jou toegewysde take</string>
+
+    <!-- Fragment Tasks - Task Details Dialog -->
+    <string name="task_dialog_due_text">Vervaldatum: %1$s</string>
+    <string name="task_dialog_assigned_to_text">Toegewys aan: %1$s</string>
+    <string name="task_dialog_status_text">Status: %1$s</string>
+    <string name="task_dialog_edit_button">Wysig</string>
+    <string name="task_dialog_close_button">Sluit</string>
+    <string name="task_dialog_delete_button">Verwyder</string>
+
+    <!-- Fragment Tasks - Add Member Dialog -->
+    <string name="add_member_title">Voeg Lid by</string>
+    <string name="add_member_button">Voeg by</string>
+    <string name="add_member_user_added_alert">Het %1$s by projek gevoeg</string>
+    <string name="add_member_issue_alert">Lid bestaan reeds of projek nie gevind nie</string>
+    <string name="add_member_email_empty_alert">E-pos kan nie leeg wees nie</string>
+    <string name="add_member_cancel_button">Kanselleer</string>
+
+    <!-- Fragment Tasks - Add Task Dialog -->
+    <string name="add_task_select_member_text">Klik om lid te kies</string>
+    <string name="add_task_title">Voeg Taak by</string>
+    <string name="add_task_fields_error">Vul asseblief al die velde in</string>
+    <string name="add_task_status_set">In Wag om te Begin</string>
+    <string name="add_task_button">Voeg by</string>
+    <string name="add_task_cancel_button">Kanselleer</string>
+
+    <!-- Fragment Tasks - Confirm Delete Task Dialog -->
+    <string name="add_task_error_date">Ongeldige datum</string>
+    <string name="delete_task_title">Verwyder Taak</string>
+    <string name="delete_task_confirmation">" Is jy seker jy wil %1$s verwyder?"</string>
+    <string name="delete_task_delete_button">Vee uit</string>
+    <string name="delete_task_cancel_button">Kanselleer</string>
+    <string name="delete_task_task_deleted_confirmation">Taak verwyder</string>
+
+    <!-- Projects View -->
+    <string name="projects_title">Projekte</string>
+    <string name="swipe_menu_hint">Veeg van die linkerkant van die skerm om die kieslys te sien</string>
+    <string name="create_project_button">Skep Projek</string>
+
+    <!-- Project Fragment - Delete Dialog -->
+    <string name="delete_project_title">Verwyder Projek</string>
+    <string name="delete_project_message_part_1">Is jy seker jy wil %1$s verwyder?</string>
+    <string name="delete_project_message_part_2">Hierdie aksie kan nie ongedaan gemaak word nie!</string>
+    <string name="delete_project_button_yes">Ja</string>
+    <string name="delete_project_button_no">Nee</string>
+
+    <!-- Settings -->
+    <string name="back">Terug</string>
+    <string name="settings_title">Instellings</string>
+    <string name="dark_mode">Donker Modus</string>
+    <string name="language">Taal</string>
+    <string name="save_settings">Stoor Instellings</string>
+
+    <!-- Task Edit -->
+    <string name="day_label">Dag</string>
+    <string name="month_label">Maand</string>
+    <string name="year_label">Jaar</string>
+    <string name="assigned_to_label">Toegewys aan:</string>
+    <string name="status_label">Status</string>
+
+    <!-- Task Edit Fragment -->
+    <string name="status_in_que_to_do">In Wag om te Doen</string>
+    <string name="status_doing">Besig</string>
+    <string name="status_completed">Voltooi</string>
+    <string name="status_issue_stuck">Probleem / Vas</string>
+    <string name="task_project_name">Projek: %1$s</string>
+    <string name="task_assigned_to">Toegewys aan: %1$s</string>
+
+    <!-- Task Overview -->
+    <string name="project_task_overview">%1$s Taak Oorsig</string>
+    <string name="tap_to_sort">Tik op \'n kolom om te sorteer</string>
+    <string name="search_hint">Tik hier om te filter en soek</string>
+    <string name="header_task">Taak</string>
+    <string name="header_status">Status</string>
+    <string name="header_due_date">Vervaldatum</string>
+    <string name="header_assigned_to">Toegewys aan</string>
+    <string name="header_description">Beskrywing</string>
+    <string name="header_docs">Dokumente</string>
+
+    <!-- Add Member -->
+    <string name="enter_member_email">Voer lid se e-pos in:</string>
+    <string name="hint_email">E-pos</string>
+
+    <!-- Add Task -->
+    <string name="hint_task_name">Taak Naam</string>
+    <string name="hint_task_description">Taak Beskrywing</string>
+
+    <!-- Dialog Task Details -->
+    <string name="task_name_label">Taak Naam</string>
+    <string name="description_label">Beskrywing</string>
+    <string name="due_date_label">Vervaldatum</string>
+    <string name="assigned_to_label_dialog">Toegewys aan</string>
+    <string name="task_status_label">Taak Status</string>
+    <string name="add_task_successful">Task added successfully</string>
+
+
+</resources>

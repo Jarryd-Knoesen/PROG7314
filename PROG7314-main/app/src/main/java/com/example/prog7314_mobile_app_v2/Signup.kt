@@ -58,34 +58,34 @@ class Signup : AppCompatActivity() {
             val password = passwordInput.text.toString().trim()
 
             if (firstName.isEmpty()) {
-                firstNameInput.error = "Enter first name"
+                firstNameInput.error = "@string/signup_name_field_empty"
                 return@setOnClickListener
             }
             if (surname.isEmpty()) {
-                surnameInput.error = "Enter surname"
+                surnameInput.error = "@string/signup_surname_field_empty"
                 return@setOnClickListener
             }
             if (phone.isEmpty() || phone.length < 7) {
-                phoneInput.error = "Enter valid phone number"
+                phoneInput.error = "@string/signup_phone_field_error"
                 return@setOnClickListener
             }
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                emailInput.error = "Enter valid email"
+                emailInput.error = "@string/signup_email_field_error"
                 return@setOnClickListener
             }
             if (password.length < 6) {
-                passwordInput.error = "Password must be at least 6 characters"
+                passwordInput.error = "@string/signup_password_field_error"
                 return@setOnClickListener
             }
 
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "@string/signup_successful", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, Home::class.java))
                         finish()
                     } else {
-                        Toast.makeText(this, "Signup failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "@string/signup_failed ${task.exception?.message}", Toast.LENGTH_LONG).show()
                     }
                 }
         }
@@ -109,15 +109,15 @@ class Signup : AppCompatActivity() {
                     .addOnCompleteListener { authTask ->
                         if (authTask.isSuccessful) {
                             // Instead of going to Home, go to Login page
-                            Toast.makeText(this, "Signup successful. Please login with Google.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "@string/signup_successful_login", Toast.LENGTH_SHORT).show()
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()
                         } else {
-                            Toast.makeText(this, "Google sign-in failed", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "@string/signup_google_failed", Toast.LENGTH_LONG).show()
                         }
                     }
             } catch (e: Exception) {
-                Toast.makeText(this, "Google sign-in error: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "@string/signup_google_sign_in_error ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
 

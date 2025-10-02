@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:background="?attr/android:colorBackground">
 
     <LinearLayout
         android:orientation="vertical"
@@ -14,22 +15,29 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="10dp"
-            android:hint="Task Name" />
+            android:hint="@string/hint_task_name"
+            android:backgroundTint="?attr/colorPrimary"
+            android:textColor="?attr/colorOnBackground"
+            android:padding="8dp"/>
 
         <EditText
             android:id="@+id/editTextTaskDescription"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="10dp"
-            android:hint="Task Description" />
+            android:hint="@string/hint_task_description"
+            android:backgroundTint="?attr/colorPrimary"
+            android:textColor="?attr/colorOnBackground"
+            android:padding="8dp"/>
 
-        <!-- New Row for Date -->
+        <!-- Date Inputs -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="10dp"
-            android:weightSum="3">
+            android:weightSum="3"
+            android:gravity="center_vertical">
 
             <EditText
                 android:id="@+id/editTextDay"
@@ -38,7 +46,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="DD" />
+                android:hint="DD"
+                android:backgroundTint="?attr/colorPrimary"
+                android:textColor="?attr/colorOnBackground"
+                android:padding="8dp"/>
 
             <EditText
                 android:id="@+id/editTextMonth"
@@ -47,7 +58,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="MM" />
+                android:hint="MM"
+                android:backgroundTint="?attr/colorPrimary"
+                android:textColor="?attr/colorOnBackground"
+                android:padding="8dp"/>
 
             <EditText
                 android:id="@+id/editTextYear"
@@ -56,14 +70,19 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="4"
-                android:hint="YYYY" />
+                android:hint="YYYY"
+                android:backgroundTint="?attr/colorPrimary"
+                android:textColor="?attr/colorOnBackground"
+                android:padding="8dp"/>
         </LinearLayout>
 
         <Spinner
             android:id="@+id/spinnerAssignedTo"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:spinnerMode="dropdown" />
-
+            android:spinnerMode="dropdown"
+            android:background="?attr/selectableItemBackground"
+            android:popupBackground="?attr/colorSurface"
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
 </ScrollView>

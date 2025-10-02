@@ -1,4 +1,164 @@
 <resources>
     <string name="app_name">PROG7314_Mobile_App_V2</string>
     <string name="default_web_client_id">78868235973-tq3valdt42aqugek55c3rjhgrgjqa9kg.apps.googleusercontent.com</string>
+
+    <!-- Home -->
+    <string name="sm_profile">Profile</string>
+    <string name="sm_projects">Projects</string>
+
+    <!-- Main -->
+    <string name="login_title">Login</string>
+    <string name="email_label">Email:</string>
+    <string name="email_hint">Email Here</string>
+    <string name="password_label">Password:</string>
+    <string name="password_hint">Password Here</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="signup">Signup</string>
+    <string name="login_button">Login</string>
+    <string name="google_login">Login with Google</string>
+
+    <!-- MainActivity - Login -->
+    <string name="login_successful">Login Successful</string>
+    <string name="login_no_account_found_error">No account found with this email. Try signing up.</string>
+    <string name="login_email_exists_error">This email is already registered with Google. Please use Google Sign-In.</string>
+    <string name="login_failed">Login failed:</string>
+    <string name="login_fields_empty_error">Please enter email and password</string>
+    <string name="google_sign_in_successful">Google Sign-In Successful</string>
+    <string name="google_signin_failed">Google Sign-In Failed</string>
+
+    <!-- Signup -->
+    <string name="signup_title">Signup</string>
+    <string name="first_name_label">First Name:</string>
+    <string name="first_name_hint">First Name Here</string>
+    <string name="surname_label">Surname:</string>
+    <string name="surname_hint">Surname Here</string>
+    <string name="phone_label">Phone Number:</string>
+    <string name="phone_hint">Phone Number Here</string>
+    <!-- Email label and hint already defined in Login -->
+    <!-- Password label and hint already defined in Login -->
+    <string name="already_have_account">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="signup_button">Signup</string>
+    <string name="google_signup">Sign up with Google</string>
+
+    <!-- SignupActivity - Signup -->
+    <string name="signup_name_field_empty">Enter first name</string>
+    <string name="signup_surname_field_empty">Enter surname</string>
+    <string name="signup_phone_field_error">Enter valid phone number</string>
+    <string name="signup_email_field_error">Enter valid email</string>
+    <string name="signup_password_field_error">Password must be at least 6 characters</string>
+    <string name="signup_successful">Signup successful</string>
+    <string name="signup_failed">Signup failed:</string>
+    <string name="signup_successful_login">Signup successful. Please login with Google.</string>
+    <string name="signup_google_failed">Google sign-in failed</string>
+    <string name="signup_google_sign_in_error">Google sign-in error:</string>
+
+
+    <!-- Add Project -->
+    <string name="enter_project_name">Enter the project\'s name:</string>
+    <string name="project_name_hint">Name</string>
+    <string name="create_project">Create Project</string>
+
+    <!-- Profile -->
+    <string name="settings">Settings</string>
+
+    <!-- Project Tasks View -->
+    <string name="add_member">Add Member</string>
+    <string name="task_overview">Task Overview</string>
+    <string name="add_task">Add Task</string>
+    <string name="your_assigned_tasks">Your assigned tasks</string>
+
+    <!-- Fragment Tasks - Task Details Dialog -->
+    <string name="task_dialog_due_text">Due: %1$s</string>
+    <string name="task_dialog_assigned_to_text">Assigned to: %1$s</string>
+    <string name="task_dialog_status_text">Status: %1$s</string>
+    <string name="task_dialog_edit_button">Edit</string>
+    <string name="task_dialog_close_button">Close</string>
+    <string name="task_dialog_delete_button">Delete</string>
+
+    <!-- Fragment Tasks - Add Member Dialog -->
+    <string name="add_member_title">Add Member</string>
+    <string name="add_member_button">Add</string>
+    <string name="add_member_user_added_alert">Added %1$s to project</string>
+    <string name="add_member_issue_alert">Member already exists or project not found</string>
+    <string name="add_member_email_empty_alert">Email cannot be empty</string>
+    <string name="add_member_cancel_button">Cancel</string>
+
+    <!-- Fragment Tasks - Add Task Dialog -->
+    <string name="add_task_select_member_text">Click to select member</string>
+    <string name="add_task_title">Add Task</string>
+    <string name="add_task_fields_error">Please fill in all fields</string>
+    <string name="add_task_status_set">In Que To Start</string>
+    <string name="add_task_button">Add</string>
+    <string name="add_task_cancel_button">Cancel</string>
+    <string name="add_task_successful">Task added successfully</string>
+    <string name="add_task_error_date">Invalid date</string>
+
+
+    <!-- Fragment Tasks - Confirm Delete Task Dialog -->
+    <string name="delete_task_title">Delete Task</string>
+    <string name="delete_task_confirmation">Are you sure you want to delete %1$s</string>
+    <string name="delete_task_delete_button">Delete</string>
+    <string name="delete_task_cancel_button">Cancel</string>
+    <string name="delete_task_task_deleted_confirmation">Task deleted</string>
+
+    <!-- Projects View -->
+    <string name="projects_title">Projects</string>
+    <string name="swipe_menu_hint">Swipe from left side of screen to bring up the menu</string>
+    <string name="create_project_button">Create Project</string>
+
+    <!-- Project Fragment - Delete Dialog -->
+    <string name="delete_project_title">Delete Project</string>
+    <string name="delete_project_message_part_1">Are you sure you want to delete %1$s?</string>
+    <string name="delete_project_message_part_2">This action cannot be undone!</string>
+    <string name="delete_project_button_yes">Yes</string>
+    <string name="delete_project_button_no">No</string>
+
+    <!-- Settings -->
+    <string name="back">Back</string>
+    <string name="settings_title">Settings</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="language">Language</string>
+    <string name="save_settings">Save Settings</string>
+
+    <!-- Task Edit -->
+    <string name="day_label">Day</string>
+    <string name="month_label">Month</string>
+    <string name="year_label">Year</string>
+    <string name="assigned_to_label">Assigned To:</string>
+    <string name="status_label">Status</string>
+
+    <!-- Task Edit Fragment -->
+    <string name="status_in_que_to_do">In Que To Do</string>
+    <string name="status_doing">Doing</string>
+    <string name="status_completed">Completed</string>
+    <string name="status_issue_stuck">Issue / Stuck</string>
+    <string name="task_project_name">Project: %1$s</string>
+    <string name="task_assigned_to">Assigned to: %1$s</string>
+
+    <!-- Task Overview -->
+    <string name="project_task_overview">%1$s Task Overview</string>
+    <string name="tap_to_sort">Tap on a column to sort by that column</string>
+    <string name="search_hint">Type here to filter and search</string>
+    <string name="header_task">Task</string>
+    <string name="header_status">Status</string>
+    <string name="header_due_date">Due Date</string>
+    <string name="header_assigned_to">Assigned To</string>
+    <string name="header_description">Description</string>
+    <string name="header_docs">Docs</string>
+
+    <!-- Add Member -->
+    <string name="enter_member_email">Enter member email:</string>
+    <string name="hint_email">Email</string>
+
+    <!-- Add Task -->
+    <string name="hint_task_name">Task Name</string>
+    <string name="hint_task_description">Task Description</string>
+
+    <!-- Dialog Task Details -->
+    <string name="task_name_label">Task Name</string>
+    <string name="description_label">Description</string>
+    <string name="due_date_label">Due Date</string>
+    <string name="assigned_to_label_dialog">Assigned To</string>
+    <string name="task_status_label">Task Status</string>
 </resources>

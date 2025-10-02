@@ -2,7 +2,6 @@ package com.example.prog7314_mobile_app_v2
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -97,12 +96,27 @@ class FragmentTasks : Fragment() {
 
         taskNameText.text = task.name
         taskDescriptionText.text = task.description
-        "Due: ${SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(task.dueDate)}".also { taskDueDateText.text = it }
-        "Assigned to: ${task.assignedTo}".also { taskAssignedToText.text = it }
-        "Status: ${task.status}".also { taskStatus.text = it }
+
+        taskNameText.text = task.name
+        taskDescriptionText.text = task.description
+
+        taskDueDateText.text = getString(
+            R.string.task_dialog_due_text,
+            SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(task.dueDate)
+        )
+
+        taskAssignedToText.text = getString(
+            R.string.task_dialog_assigned_to_text,
+            task.assignedTo
+        )
+
+        taskStatus.text = getString(
+            R.string.task_dialog_status_text,
+            task.status
+        )
 
         builder.setView(dialogView)
-            .setNegativeButton("Edit") { _, _ ->
+            .setNegativeButton(getString(R.string.task_dialog_edit_button)) { _, _ ->
                 val fragmentTaskEdit = FragmentTaskEdit()
                 val bundle = Bundle()
                 bundle.putSerializable("task", task)
@@ -113,10 +127,10 @@ class FragmentTasks : Fragment() {
                     .addToBackStack(null)
                     .commit()
             }
-            .setNeutralButton("Delete") { _, _ ->
+            .setNeutralButton(getString(R.string.task_dialog_delete_button)) { _, _ ->
                 confirmDeleteTask(task)
             }
-            .setPositiveButton("Close") { dialog, _ ->
+            .setPositiveButton(getString(R.string.task_dialog_close_button)) { dialog, _ ->
                 dialog.dismiss()
             }
 
@@ -135,23 +149,24 @@ class FragmentTasks : Fragment() {
         val emailInput = dialogView.findViewById<EditText>(R.id.etEmail)
 
         builder.setView(dialogView)
-            .setTitle("Add Member")
-            .setPositiveButton("Add") { dialog, _ ->
+            .setTitle(getString(R.string.add_member_title))
+            .setPositiveButton(getString(R.string.add_member_button)) { dialog, _ ->
                 val email = emailInput.text.toString().trim()
 
                 if (email.isNotEmpty() && projectID != null) {
                     val success = ProjectsRepository.addMemberToProject(projectID, email)
-                    if (success) {
-                        android.widget.Toast.makeText(requireContext(), "Added $email to project", android.widget.Toast.LENGTH_SHORT).show()
+                    val message = if (success) {
+                        getString(R.string.add_member_user_added_alert, email)
                     } else {
-                        android.widget.Toast.makeText(requireContext(), "Member already exists or project not found", android.widget.Toast.LENGTH_SHORT).show()
+                        getString(R.string.add_member_issue_alert)
                     }
+                    android.widget.Toast.makeText(requireContext(), message, android.widget.Toast.LENGTH_SHORT).show()
                 } else {
-                    android.widget.Toast.makeText(requireContext(), "Email cannot be empty", android.widget.Toast.LENGTH_SHORT).show()
+                    android.widget.Toast.makeText(requireContext(), getString(R.string.add_member_email_empty_alert), android.widget.Toast.LENGTH_SHORT).show()
                 }
                 dialog.dismiss()
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setNegativeButton(getString(R.string.add_member_cancel_button)) { dialog, _ ->
                 dialog.dismiss()
             }
 
@@ -174,7 +189,7 @@ class FragmentTasks : Fragment() {
         val assignedToSpinner = dialogView.findViewById<Spinner>(R.id.spinnerAssignedTo)
 
         // Fetch project members
-        val membersList = mutableListOf("Select member")
+        val membersList = mutableListOf(getString(R.string.add_task_select_member_text))
         projectID?.let {
             val project = ProjectsRepository.projects.find { p -> p.projectID == it }
             project?.members?.let { members -> membersList.addAll(members) }
@@ -185,8 +200,8 @@ class FragmentTasks : Fragment() {
         assignedToSpinner.adapter = membersAdapter
 
         builder.setView(dialogView)
-            .setTitle("Add Task")
-            .setPositiveButton("Add") { dialog, _ ->
+            .setTitle(getString(R.string.add_task_title))
+            .setPositiveButton(getString(R.string.add_task_button)) { dialog, _ ->
                 val taskName = taskNameInput.text.toString().trim()
                 val taskDescription = taskDescriptionInput.text.toString().trim()
                 val dayStr = dayInput.text.toString().trim()
@@ -196,8 +211,8 @@ class FragmentTasks : Fragment() {
 
                 if (taskName.isEmpty() || taskDescription.isEmpty() ||
                     dayStr.isEmpty() || monthStr.isEmpty() || yearStr.isEmpty() ||
-                    assignedTo == "Select member") {
-                    android.widget.Toast.makeText(requireContext(), "Please fill in all fields", android.widget.Toast.LENGTH_SHORT).show()
+                    assignedTo == getString(R.string.add_task_select_member_text)) {
+                    android.widget.Toast.makeText(requireContext(), getString(R.string.add_task_fields_error), android.widget.Toast.LENGTH_SHORT).show()
                     return@setPositiveButton
                 }
 
@@ -220,7 +235,7 @@ class FragmentTasks : Fragment() {
                             dueDate = dueDate,
                             assignedTo = assignedTo,
                             colorStatus = "#B0B0B0".toColorInt(),
-                            status = "In Que To Start",
+                            status = getString(R.string.add_task_status_set),
                             projectID = projectID
                         )
 
@@ -232,15 +247,15 @@ class FragmentTasks : Fragment() {
 
                         adapter.updateTasks(updatedList)
 
-                        android.widget.Toast.makeText(requireContext(), "Task added successfully", android.widget.Toast.LENGTH_SHORT).show()
+                        android.widget.Toast.makeText(requireContext(), getString(R.string.add_task_successful), android.widget.Toast.LENGTH_SHORT).show()
                     }
                 } catch (_: Exception) {
-                    android.widget.Toast.makeText(requireContext(), "Invalid date", android.widget.Toast.LENGTH_SHORT).show()
+                    android.widget.Toast.makeText(requireContext(), getString(R.string.add_task_error_date), android.widget.Toast.LENGTH_SHORT).show()
                 }
 
                 dialog.dismiss()
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setNegativeButton(getString(R.string.add_task_cancel_button)) { dialog, _ ->
                 dialog.dismiss()
             }
 
@@ -250,12 +265,12 @@ class FragmentTasks : Fragment() {
 
     private fun confirmDeleteTask(task: Task) {
         AlertDialog.Builder(requireContext())
-            .setTitle("Delete Task")
-            .setMessage("Are you sure you want to delete \"${task.name}\"?")
-            .setPositiveButton("Delete") { _, _ ->
+            .setTitle(getString(R.string.delete_task_title))
+            .setMessage(getString(R.string.delete_task_confirmation, task.name))
+            .setPositiveButton(getString(R.string.delete_task_delete_button)) { _, _ ->
                 deleteTask(task)
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setNegativeButton(getString(R.string.delete_task_cancel_button)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
@@ -272,7 +287,7 @@ class FragmentTasks : Fragment() {
 
         adapter.updateTasks(tasksList)
 
-        android.widget.Toast.makeText(requireContext(), "Task deleted", android.widget.Toast.LENGTH_SHORT).show()
+        android.widget.Toast.makeText(requireContext(), getString(R.string.delete_task_task_deleted_confirmation), android.widget.Toast.LENGTH_SHORT).show()
     }
 
 }

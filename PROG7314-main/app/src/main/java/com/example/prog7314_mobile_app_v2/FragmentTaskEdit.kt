@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import com.example.prog7314_mobile_app_v2.models.ProjectsRepository
 import com.example.prog7314_mobile_app_v2.models.Task
 import java.util.Calendar
 
@@ -24,11 +25,16 @@ class FragmentTaskEdit : Fragment() {
         val task = arguments?.getSerializable("task") as? Task
 
         task?.let {
+            // Look up the project name using projectID
+            val projectName = ProjectsRepository.projects
+                .firstOrNull { project -> project.projectID == it.projectID }
+                ?.name ?: "Unknown Project"
+
             // Project and task details
-            view.findViewById<TextView>(R.id.txtProjectName).text = "Project ID: ${it.projectID}"
+            view.findViewById<TextView>(R.id.txtProjectName).text = getString(R.string.task_project_name, projectName)
             view.findViewById<TextView>(R.id.txtTaskName).text = it.name
             view.findViewById<TextView>(R.id.txtDescription).text = it.description
-            view.findViewById<TextView>(R.id.txtAssignedTo).text = "Assigned to: ${it.assignedTo}"
+            view.findViewById<TextView>(R.id.txtAssignedTo).text = getString(R.string.task_assigned_to, it.assignedTo)
 
             // Date -> split into day, month, year
             val calendar = Calendar.getInstance()
@@ -39,7 +45,7 @@ class FragmentTaskEdit : Fragment() {
 
             // Spinner -> set current status
             val spinner = view.findViewById<Spinner>(R.id.spinnerStatus)
-            val statuses = listOf("In Que To Do", "Doing", "Completed", "Issue / Stuck") // Statuses
+            val statuses = listOf(getString(R.string.status_in_que_to_do), getString(R.string.status_doing), getString(R.string.status_completed), getString(R.string.status_issue_stuck)) // Statuses
             val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, statuses)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter

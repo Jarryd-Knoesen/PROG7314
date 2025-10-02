@@ -1,43 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:background="?attr/android:colorBackground">
 
     <TextView
         android:id="@+id/dialogTaskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Task Name"
+        android:text="@string/task_name_label"
         android:textStyle="bold"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textColor="?attr/colorOnBackground" />
 
     <TextView
         android:id="@+id/dialogTaskDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description"
-        android:layout_marginTop="8dp" />
+        android:text="@string/description_label"
+        android:layout_marginTop="8dp"
+        android:textColor="?attr/colorOnBackground" />
 
     <TextView
         android:id="@+id/dialogTaskDueDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Due Date"
-        android:layout_marginTop="8dp" />
+        android:text="@string/due_date_label"
+        android:layout_marginTop="8dp"
+        android:textColor="?attr/colorOnBackground" />
 
     <TextView
         android:id="@+id/dialogTaskAssignedTo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Assigned To"
-        android:layout_marginTop="8dp" />
+        android:text="@string/assigned_to_label_dialog"
+        android:layout_marginTop="8dp"
+        android:textColor="?attr/colorOnBackground" />
 
     <TextView
         android:id="@+id/dialogTaskStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Task Status"
-        android:layout_marginTop="8dp"/>
+        android:text="@string/task_status_label"
+        android:layout_marginTop="8dp"
+        android:textColor="?attr/colorOnBackground"/>
 </LinearLayout>
