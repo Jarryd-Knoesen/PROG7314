@@ -39,7 +39,7 @@ class FragmentTaskOverview : Fragment() {
         val projectID = arguments?.getString("projectID")
         val projectName = arguments?.getString("projectName")
 
-        view.findViewById<TextView>(R.id.txtProjectName).text = "$projectName Task Overview"
+        getString(R.string.project_task_overview, projectName).also { view.findViewById<TextView>(R.id.txtProjectName).text = it }
 
         taskList = if (projectID != null) {
             TaskRepository.tasks.filter { it.projectID == projectID }

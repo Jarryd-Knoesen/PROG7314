@@ -1,8 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.PROG7314_Mobile_App_V2" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#F94DFF</item>
+        <item name="colorSecondary">#6C63FF</item>
+        <item name="android:colorBackground">#FFFFFF</item>
+        <item name="colorSurface">#F5F5F5</item>
+        <item name="colorOnPrimary">#212121</item>
+        <item name="colorOnSecondary">#616161</item>
+        <item name="android:strokeColor">#E0E0E0</item> <!--This is for the border color-->
+        <item name="android:textColorTertiary">#4CAF50</item> <!--This is for the success color-->
+        <item name="colorError">#F44336</item>
+        <item name="android:colorError">#FF9800</item> <!--This is for the error color-->
+        <item name="android:textColorSecondary">#000000</item>
     </style>
 
     <style name="Theme.PROG7314_Mobile_App_V2" parent="Base.Theme.PROG7314_Mobile_App_V2" />

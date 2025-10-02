@@ -35,7 +35,6 @@ class Home : AppCompatActivity() {
         // Gets ID of the menu items
         val smProfile = findViewById<TextView>(R.id.smProfile)
         val smProjects = findViewById<TextView>(R.id.smProjects)
-        val smTaskOverview = findViewById<TextView>(R.id.smTaskOverview)
 //
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.drawerLayout)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -50,11 +49,6 @@ class Home : AppCompatActivity() {
         }
         smProjects.setOnClickListener {
             replaceFragment(FragmentProjects())
-            drawerLayout.closeDrawer(GravityCompat.START)
-        }
-
-        smTaskOverview.setOnClickListener {
-//            replaceFragment()
             drawerLayout.closeDrawer(GravityCompat.START)
         }
 

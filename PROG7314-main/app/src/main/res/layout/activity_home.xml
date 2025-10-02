@@ -39,7 +39,7 @@
             android:id="@+id/smProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Profile"
+            android:text="@string/sm_profile"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:layout_marginTop="50dp"
@@ -49,16 +49,7 @@
             android:id="@+id/smProjects"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Projects"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:padding="8dp"/>
-
-        <TextView
-            android:id="@+id/smTaskOverview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Task Overview"
+            android:text="@string/sm_projects"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:padding="8dp"/>

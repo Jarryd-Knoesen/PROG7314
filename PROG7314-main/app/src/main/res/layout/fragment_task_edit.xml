@@ -5,18 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="?attr/android:colorBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="438dp"
+        android:layout_height="0dp"
         android:divider="?android:attr/dividerVertical"
         android:orientation="vertical"
         android:showDividers="middle"
+        android:weightSum="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,6 +28,7 @@
             android:paddingVertical="8dp"
             android:text="Project Name"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?attr/colorOnBackground"
             android:textStyle="bold" />
 
         <TextView
@@ -38,7 +37,8 @@
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
             android:text="Task Name"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?attr/colorOnBackground" />
 
         <TextView
             android:id="@+id/txtDescription"
@@ -46,7 +46,8 @@
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
             android:text="Description"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?attr/colorOnBackground" />
 
         <!-- Date Inputs -->
         <LinearLayout
@@ -66,13 +67,15 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Day"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:text="@string/day_label"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?attr/colorOnBackground" />
 
                 <EditText
                     android:id="@+id/editTextDay"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:backgroundTint="?attr/colorPrimary"
                     android:hint="DD"
                     android:inputType="number"
                     android:padding="8dp" />
@@ -88,13 +91,15 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Month"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:text="@string/month_label"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?attr/colorOnBackground" />
 
                 <EditText
                     android:id="@+id/editTextMonth"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:backgroundTint="?attr/colorPrimary"
                     android:hint="MM"
                     android:inputType="number"
                     android:padding="8dp" />
@@ -110,13 +115,15 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Year"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:text="@string/year_label"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?attr/colorOnBackground" />
 
                 <EditText
                     android:id="@+id/editTextYear"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:backgroundTint="?attr/colorPrimary"
                     android:hint="YYYY"
                     android:inputType="number"
                     android:padding="8dp" />
@@ -129,8 +136,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="8dp"
-            android:text="Assigned To"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:text="@string/assigned_to_label"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?attr/colorOnBackground" />
 
         <!-- Status -->
         <LinearLayout
@@ -145,14 +153,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="center_vertical"
-                android:text="Status"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:text="@string/status_label"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?attr/colorOnBackground" />
 
             <Spinner
                 android:id="@+id/spinnerStatus"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:layout_weight="1.5" />
+                android:layout_weight="1.5"
+                android:backgroundTint="?attr/colorPrimary" />
         </LinearLayout>
 
     </LinearLayout>

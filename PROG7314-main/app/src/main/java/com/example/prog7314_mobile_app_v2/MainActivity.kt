@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 //                auth.signInWithEmailAndPassword(email, password)
 //                    .addOnCompleteListener { task ->
 //                        if (task.isSuccessful) {
-//                            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(this, "@string/login_successful", Toast.LENGTH_SHORT).show()
 //                            startActivity(Intent(this, Home::class.java))
 //                            finish()
 //                        } else {
@@ -50,26 +50,26 @@ class MainActivity : AppCompatActivity() {
 //                            if (exception is com.google.firebase.auth.FirebaseAuthInvalidUserException) {
 //                                Toast.makeText(
 //                                    this,
-//                                    "No account found with this email. Try signing up.",
+//                                    "@string/login_no_account_found_error",
 //                                    Toast.LENGTH_LONG
 //                                ).show()
 //                            } else if (exception is com.google.firebase.auth.FirebaseAuthUserCollisionException) {
 //                                Toast.makeText(
 //                                    this,
-//                                    "This email is already registered with Google. Please use Google Sign-In.",
+//                                    "@string/login_email_exists_error",
 //                                    Toast.LENGTH_LONG
 //                                ).show()
 //                            } else {
 //                                Toast.makeText(
 //                                    this,
-//                                    "Login failed: ${exception?.message}",
+//                                    "@string/login_failed ${exception?.message}",
 //                                    Toast.LENGTH_LONG
 //                                ).show()
 //                            }
 //                        }
 //                    }
 //            } else {
-//                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "@string/login_fields_empty_error", Toast.LENGTH_SHORT).show()
 //            }
         }
 
@@ -108,11 +108,11 @@ class MainActivity : AppCompatActivity() {
             auth.signInWithCredential(credential)
                 .addOnCompleteListener { authTask ->
                     if (authTask.isSuccessful) {
-                        Toast.makeText(this, "Google Sign-In successful", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "@string/google_sign_in_successful", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, Home::class.java))
                         finish()
                     } else {
-                        Toast.makeText(this, "Google Sign-In failed", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "@string/google_signin_failed", Toast.LENGTH_LONG).show()
                     }
                 }
         } catch (e: ApiException) {

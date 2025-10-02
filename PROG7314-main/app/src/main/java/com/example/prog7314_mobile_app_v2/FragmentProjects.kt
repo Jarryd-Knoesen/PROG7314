@@ -73,14 +73,14 @@ class FragmentProjects : Fragment() {
 
     private fun showDeleteConfirmation(project: Projects) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Delete Project")
-        builder.setMessage("Are you sure you want to delete \"${project.name}\"? This action cannot be undone.")
-        builder.setPositiveButton("Yes") { _, _ ->
+        builder.setTitle(getString(R.string.delete_project_title))
+        builder.setMessage(getString(R.string.delete_project_message_part_1, project.name) + getString(R.string.delete_project_message_part_2))
+        builder.setPositiveButton(getString(R.string.delete_project_button_yes)) { _, _ ->
             ProjectsRepository.projects.removeIf { it.projectID == project.projectID }
             projectsList = ProjectsRepository.projects.sortedBy { it.name }
             adapter.updateProjects(projectsList)
         }
-        builder.setNegativeButton("No") { dialog, _ ->
+        builder.setNegativeButton(getString(R.string.delete_project_button_no)) { dialog, _ ->
             dialog.dismiss()
         }
         builder.show()
