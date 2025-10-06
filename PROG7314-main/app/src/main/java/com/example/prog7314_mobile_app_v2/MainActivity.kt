@@ -6,6 +6,10 @@ import android.util.Log
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.prog7314_mobile_app_v2.Retrofit.ApiClient
+import com.example.prog7314_mobile_app_v2.Retrofit.ProjectsApi
+import com.example.prog7314_mobile_app_v2.models.Projects
+import com.example.prog7314_mobile_app_v2.models.TestModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -95,6 +99,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        testGetAllProjects()
     }
 
     // Google login result handler
@@ -119,5 +125,27 @@ class MainActivity : AppCompatActivity() {
             Log.e("GoogleLogin", "Sign-In failed: ${e.statusCode}")
             Toast.makeText(this, "Google Sign-In failed", Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun testGetAllProjects() {
+        val api = ApiClient.instance.create(ProjectsApi::class.java)
+
+        api.getAllProjects().enqueue(object : retrofit2.Callback<List<TestModel>> {
+            override fun onResponse(
+                call: retrofit2.Call<List<TestModel>>,
+                response: retrofit2.Response<List<TestModel>>
+            ) {
+                if (response.isSuccessful) {
+                    val projects = response.body()
+                    Log.d("API_SUCCESS", "Projects: $projects")
+                } else {
+                    Log.e("API_ERROR", "Error code: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: retrofit2.Call<List<TestModel>>, t: Throwable) {
+                Log.e("API_FAILURE", "Error: ${t.message}")
+            }
+        })
     }
 }
