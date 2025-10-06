@@ -34,7 +34,7 @@ class Signup : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        // Configure Google Sign-In
+        // 🔹 Google Sign-In Configuration
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -51,9 +51,9 @@ class Signup : AppCompatActivity() {
         val loginText = findViewById<TextView>(R.id.tvLogin)
         val googleButton = findViewById<LinearLayout>(R.id.btnGoogleSignup)
 
-        // ==============================
-        // 🔹 Email + Password Signup
-        // ==============================
+        // =====================================
+        // 🔸 EMAIL + PASSWORD SIGNUP
+        // =====================================
         signupButton.setOnClickListener {
             val firstName = firstNameInput.text.toString().trim()
             val surname = surnameInput.text.toString().trim()
@@ -82,7 +82,7 @@ class Signup : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // 🔸 Check if the email is already used by a Google account
+            // 🔹 Check if user exists via Google
             db.collection("users")
                 .whereEqualTo("email", email)
                 .get()
@@ -95,22 +95,26 @@ class Signup : AppCompatActivity() {
                         }
                     }
 
-                    // Proceed to create account
+                    // 🔹 Create new user
                     auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 val user = auth.currentUser
-                                val userData = hashMapOf(
-                                    "firstName" to firstName,
-                                    "surname" to surname,
-                                    "phone" to phone,
-                                    "email" to email,
-                                    "signInMethod" to "password",
-                                    "createdAt" to FieldValue.serverTimestamp(),
-                                    "uid" to user?.uid
-                                )
-
                                 if (user != null) {
+                                    val userData = hashMapOf(
+                                        "uid" to user.uid,
+                                        "firstName" to firstName,
+                                        "surname" to surname,
+                                        "phone" to phone,
+                                        "email" to email,
+                                        "signInMethod" to "password",
+                                        "createdAt" to FieldValue.serverTimestamp(),
+                                        "preferences" to hashMapOf(
+                                            "language" to "en",
+                                            "theme" to "light"
+                                        )
+                                    )
+
                                     db.collection("users").document(user.uid)
                                         .set(userData)
                                         .addOnSuccessListener {
@@ -129,15 +133,15 @@ class Signup : AppCompatActivity() {
                 }
         }
 
-        // Navigate to Login
+        // 🔹 Navigate to Login
         loginText.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
 
-        // ==============================
-        // 🔹 Google Signup
-        // ==============================
+        // =====================================
+        // 🔸 GOOGLE SIGNUP
+        // =====================================
         val googleSignInLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
@@ -156,14 +160,18 @@ class Signup : AppCompatActivity() {
                                 userRef.get().addOnSuccessListener { document ->
                                     if (!document.exists()) {
                                         val userData = hashMapOf(
+                                            "uid" to user.uid,
                                             "firstName" to user.displayName?.split(" ")?.firstOrNull(),
                                             "surname" to user.displayName?.split(" ")?.getOrNull(1),
                                             "phone" to user.phoneNumber,
                                             "email" to user.email,
                                             "signInMethod" to "google",
                                             "createdAt" to FieldValue.serverTimestamp(),
-                                            "uid" to user.uid,
-                                            "profilePictureUrl" to user.photoUrl.toString()
+                                            "profilePictureUrl" to user.photoUrl.toString(),
+                                            "preferences" to hashMapOf(
+                                                "language" to "en",
+                                                "theme" to "light"
+                                            )
                                         )
                                         userRef.set(userData)
                                     }
@@ -182,6 +190,7 @@ class Signup : AppCompatActivity() {
             }
         }
 
+        // 🔹 Google Button Action
         googleButton.setOnClickListener {
             googleSignInClient.signOut().addOnCompleteListener {
                 googleSignInClient.revokeAccess().addOnCompleteListener {
