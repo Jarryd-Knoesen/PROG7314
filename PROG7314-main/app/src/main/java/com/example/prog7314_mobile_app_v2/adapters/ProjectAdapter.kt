@@ -8,41 +8,37 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.prog7314_mobile_app_v2.R
-import com.example.prog7314_mobile_app_v2.models.Projects
+import com.example.prog7314_mobile_app_v2.models.ProjectModel
 
 class ProjectAdapter(
-    private var projects: List<Projects>,
-    private val onProjectClick: (Projects) -> Unit,
-    private val onDeleteClick: (Projects) -> Unit // new callback
+    private var projects: List<ProjectModel>,
+    private val onProjectClick: (ProjectModel) -> Unit,
+    private val onDeleteClick: (ProjectModel) -> Unit
 ) : RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>() {
 
     inner class ProjectViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val projectName: TextView = itemView.findViewById(R.id.projectName)
-        val deleteButton: ImageButton = itemView.findViewById(R.id.btnDeleteProject) // new
+        val deleteButton: ImageButton = itemView.findViewById(R.id.btnDeleteProject)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.task_project_card_item, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.task_project_card_item, parent, false)
         return ProjectViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ProjectViewHolder, position: Int) {
         val project = projects[position]
         holder.projectName.text = project.name
-
-        holder.itemView.setOnClickListener {
-            onProjectClick(project)
-        }
-
-        holder.deleteButton.setOnClickListener {
-            onDeleteClick(project)
-        }
+        holder.itemView.setOnClickListener { onProjectClick(project) }
+        holder.deleteButton.setOnClickListener { onDeleteClick(project) }
     }
 
     override fun getItemCount(): Int = projects.size
 
-    fun updateProjects(newProjects: List<Projects>) {
+    fun updateProjects(newProjects: List<ProjectModel>) {
         projects = newProjects
         notifyDataSetChanged()
     }
 }
+
