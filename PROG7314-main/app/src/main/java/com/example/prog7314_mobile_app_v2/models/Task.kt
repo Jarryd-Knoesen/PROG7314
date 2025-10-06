@@ -13,3 +13,14 @@ data class Task(
     val status: String,
     val projectID: String // Links to a project
 ) : Serializable
+
+//data class Task(
+//    val id: String? = null,
+//    val name: String? = null,
+//    val description: String? = null,
+//    val assignedTo: String? = null,
+//    val colorStatus: String? = null,
+//    val status: String? = null,
+//    val dueDate: Date? = null,
+//    val createdAt: Date? = null
+//) : Serializable
