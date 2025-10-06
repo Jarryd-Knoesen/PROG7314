@@ -3,14 +3,17 @@ package com.example.prog7314_mobile_app_v2
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.SignInButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
@@ -34,43 +37,46 @@ class MainActivity : AppCompatActivity() {
         // Email/Password login
         loginButton.setOnClickListener {
             startActivity(Intent(this, Home::class.java))
-//            val email = emailField.text.toString()
-//            val password = passwordField.text.toString()
-//
-//            if (email.isNotEmpty() && password.isNotEmpty()) {
-//                auth.signInWithEmailAndPassword(email, password)
-//                    .addOnCompleteListener { task ->
-//                        if (task.isSuccessful) {
-//                            Toast.makeText(this, "@string/login_successful", Toast.LENGTH_SHORT).show()
-//                            startActivity(Intent(this, Home::class.java))
-//                            finish()
-//                        } else {
-//                            val exception = task.exception
-//                            // Check if the email is registered with another provider
-//                            if (exception is com.google.firebase.auth.FirebaseAuthInvalidUserException) {
-//                                Toast.makeText(
-//                                    this,
-//                                    "@string/login_no_account_found_error",
-//                                    Toast.LENGTH_LONG
-//                                ).show()
-//                            } else if (exception is com.google.firebase.auth.FirebaseAuthUserCollisionException) {
-//                                Toast.makeText(
-//                                    this,
-//                                    "@string/login_email_exists_error",
-//                                    Toast.LENGTH_LONG
-//                                ).show()
-//                            } else {
-//                                Toast.makeText(
-//                                    this,
-//                                    "@string/login_failed ${exception?.message}",
-//                                    Toast.LENGTH_LONG
-//                                ).show()
-//                            }
-//                        }
-//                    }
-//            } else {
-//                Toast.makeText(this, "@string/login_fields_empty_error", Toast.LENGTH_SHORT).show()
-//            }
+
+            val email = emailField.text.toString()
+            val password = passwordField.text.toString()
+
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(this, "@string/login_successful", Toast.LENGTH_SHORT)
+                                .show()
+                            startActivity(Intent(this, Home::class.java))
+                            finish()
+                        } else {
+                            val exception = task.exception
+                            // Check if the email is registered with another provider
+                            if (exception is com.google.firebase.auth.FirebaseAuthInvalidUserException) {
+                                Toast.makeText(
+                                    this,
+                                    "@string/login_no_account_found_error",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            } else if (exception is com.google.firebase.auth.FirebaseAuthUserCollisionException) {
+                                Toast.makeText(
+                                    this,
+                                    "@string/login_email_exists_error",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            } else {
+                                Toast.makeText(
+                                    this,
+                                    "@string/login_failed ${exception?.message}",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    }
+            } else {
+                Toast.makeText(this, "@string/login_fields_empty_error", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         // Navigate to Signup
@@ -108,11 +114,16 @@ class MainActivity : AppCompatActivity() {
             auth.signInWithCredential(credential)
                 .addOnCompleteListener { authTask ->
                     if (authTask.isSuccessful) {
-                        Toast.makeText(this, "@string/google_sign_in_successful", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            "@string/google_sign_in_successful",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         startActivity(Intent(this, Home::class.java))
                         finish()
                     } else {
-                        Toast.makeText(this, "@string/google_signin_failed", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "@string/google_signin_failed", Toast.LENGTH_LONG)
+                            .show()
                     }
                 }
         } catch (e: ApiException) {
