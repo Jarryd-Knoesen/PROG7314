@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.util.Date
 
-data class TestModel(
+data class ProjectModel(
     @SerializedName("id")
     val projectID: String,
     val name: String,

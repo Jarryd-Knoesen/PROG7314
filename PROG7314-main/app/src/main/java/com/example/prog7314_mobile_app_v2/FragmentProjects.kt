@@ -3,6 +3,7 @@ package com.example.prog7314_mobile_app_v2
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,15 +12,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.prog7314_mobile_app_v2.Retrofit.ApiClient
+import com.example.prog7314_mobile_app_v2.Retrofit.ProjectsApi
 import com.example.prog7314_mobile_app_v2.adapters.ProjectAdapter
-import com.example.prog7314_mobile_app_v2.models.Projects
-import com.example.prog7314_mobile_app_v2.models.ProjectsRepository
+import com.example.prog7314_mobile_app_v2.models.ProjectModel
+import com.google.firebase.auth.FirebaseAuth
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FragmentProjects : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ProjectAdapter
-    private lateinit var projectsList: List<Projects>
+    private var projectsList: MutableList<ProjectModel> = mutableListOf()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -27,10 +33,8 @@ class FragmentProjects : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate layout
         val view = inflater.inflate(R.layout.fragment_projects_view, container, false)
 
-        // RecyclerView setup
         recyclerView = view.findViewById(R.id.taskProjectCardRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -44,45 +48,73 @@ class FragmentProjects : Fragment() {
             (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
 
-        // Load projects
-        projectsList = ProjectsRepository.projects.sortedBy { it.name }
-
-        // Adapter with click and delete handlers
         adapter = ProjectAdapter(
             projectsList,
-            { project -> // On project click
-                val fragmentTasks = FragmentTasks()
-                val bundle = Bundle()
-                bundle.putString("projectID", project.projectID)
-                bundle.putString("projectName", project.name)
-                fragmentTasks.arguments = bundle
-
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, fragmentTasks)
-                    .addToBackStack(null)
-                    .commit()
-            },
-            { project -> // On delete click
-                showDeleteConfirmation(project)
-            }
+            { project -> openProjectTasks(project) },
+            { project -> showDeleteConfirmation(project) }
         )
 
         recyclerView.adapter = adapter
+
+        // 🔹 Fetch from API
+        fetchProjectsFromApi()
+
         return view
     }
 
-    private fun showDeleteConfirmation(project: Projects) {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle(getString(R.string.delete_project_title))
-        builder.setMessage(getString(R.string.delete_project_message_part_1, project.name) + getString(R.string.delete_project_message_part_2))
-        builder.setPositiveButton(getString(R.string.delete_project_button_yes)) { _, _ ->
-            ProjectsRepository.projects.removeIf { it.projectID == project.projectID }
-            projectsList = ProjectsRepository.projects.sortedBy { it.name }
-            adapter.updateProjects(projectsList)
+    private fun fetchProjectsFromApi() {
+        val api = ApiClient.instance.create(ProjectsApi::class.java)
+        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+
+        api.getUserProjects(currentUserUid).enqueue(object : Callback<List<ProjectModel>> {
+            override fun onResponse(call: Call<List<ProjectModel>>, response: Response<List<ProjectModel>>) {
+                if (response.isSuccessful) {
+                    val projects = response.body()
+                    if (projects != null) {
+                        projectsList.clear()
+                        projectsList.addAll(projects.sortedBy { it.name })
+                        adapter.updateProjects(projectsList)
+                        Log.d("API_SUCCESS", "Loaded ${projectsList.size} projects for user")
+                    }
+                } else {
+                    Log.e("API_ERROR", "Error code: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<ProjectModel>>, t: Throwable) {
+                Log.e("API_FAILURE", "Failed to fetch projects: ${t.message}")
+            }
+        })
+    }
+
+    private fun openProjectTasks(project: ProjectModel) {
+        val fragmentTasks = FragmentTasks()
+        val bundle = Bundle().apply {
+            putString("projectID", project.projectID)
+            putString("projectName", project.name)
         }
-        builder.setNegativeButton(getString(R.string.delete_project_button_no)) { dialog, _ ->
-            dialog.dismiss()
-        }
-        builder.show()
+        fragmentTasks.arguments = bundle
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragmentTasks)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun showDeleteConfirmation(project: ProjectModel) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.delete_project_title))
+            .setMessage(
+                getString(R.string.delete_project_message_part_1, project.name) +
+                        getString(R.string.delete_project_message_part_2)
+            )
+            .setPositiveButton(getString(R.string.delete_project_button_yes)) { _, _ ->
+                projectsList.removeIf { it.projectID == project.projectID }
+                adapter.updateProjects(projectsList)
+            }
+            .setNegativeButton(getString(R.string.delete_project_button_no)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }
