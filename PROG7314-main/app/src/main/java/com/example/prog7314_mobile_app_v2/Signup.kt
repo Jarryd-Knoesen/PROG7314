@@ -11,14 +11,16 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FieldValue
 
 class Signup : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +36,7 @@ class Signup : AppCompatActivity() {
 
         // Configure Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id)) // <-- from google-services.json
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
@@ -49,7 +51,9 @@ class Signup : AppCompatActivity() {
         val loginText = findViewById<TextView>(R.id.tvLogin)
         val googleButton = findViewById<LinearLayout>(R.id.btnGoogleSignup)
 
-        // Email + Password Signup
+        // ==============================
+        // 🔹 Email + Password Signup
+        // ==============================
         signupButton.setOnClickListener {
             val firstName = firstNameInput.text.toString().trim()
             val surname = surnameInput.text.toString().trim()
@@ -58,35 +62,70 @@ class Signup : AppCompatActivity() {
             val password = passwordInput.text.toString().trim()
 
             if (firstName.isEmpty()) {
-                firstNameInput.error = "@string/signup_name_field_empty"
+                firstNameInput.error = "Enter first name"
                 return@setOnClickListener
             }
             if (surname.isEmpty()) {
-                surnameInput.error = "@string/signup_surname_field_empty"
+                surnameInput.error = "Enter surname"
                 return@setOnClickListener
             }
             if (phone.isEmpty() || phone.length < 7) {
-                phoneInput.error = "@string/signup_phone_field_error"
+                phoneInput.error = "Enter valid phone number"
                 return@setOnClickListener
             }
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                emailInput.error = "@string/signup_email_field_error"
+                emailInput.error = "Enter valid email"
                 return@setOnClickListener
             }
             if (password.length < 6) {
-                passwordInput.error = "@string/signup_password_field_error"
+                passwordInput.error = "Password must be at least 6 characters"
                 return@setOnClickListener
             }
 
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(this, "@string/signup_successful", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, Home::class.java))
-                        finish()
-                    } else {
-                        Toast.makeText(this, "@string/signup_failed ${task.exception?.message}", Toast.LENGTH_LONG).show()
+            // 🔸 Check if the email is already used by a Google account
+            db.collection("users")
+                .whereEqualTo("email", email)
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (!documents.isEmpty) {
+                        val signInMethod = documents.documents[0].getString("signInMethod")
+                        if (signInMethod == "google") {
+                            Toast.makeText(this, "This email is already linked to a Google account. Please sign in with Google.", Toast.LENGTH_LONG).show()
+                            return@addOnSuccessListener
+                        }
                     }
+
+                    // Proceed to create account
+                    auth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val user = auth.currentUser
+                                val userData = hashMapOf(
+                                    "firstName" to firstName,
+                                    "surname" to surname,
+                                    "phone" to phone,
+                                    "email" to email,
+                                    "signInMethod" to "password",
+                                    "createdAt" to FieldValue.serverTimestamp(),
+                                    "uid" to user?.uid
+                                )
+
+                                if (user != null) {
+                                    db.collection("users").document(user.uid)
+                                        .set(userData)
+                                        .addOnSuccessListener {
+                                            Toast.makeText(this, "Signup successful!", Toast.LENGTH_SHORT).show()
+                                            startActivity(Intent(this, Home::class.java))
+                                            finish()
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Toast.makeText(this, "Error saving user: ${e.message}", Toast.LENGTH_LONG).show()
+                                        }
+                                }
+                            } else {
+                                Toast.makeText(this, "Signup failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                            }
+                        }
                 }
         }
 
@@ -96,7 +135,9 @@ class Signup : AppCompatActivity() {
             finish()
         }
 
-        // Google Signup/Login
+        // ==============================
+        // 🔹 Google Signup
+        // ==============================
         val googleSignInLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
@@ -108,22 +149,40 @@ class Signup : AppCompatActivity() {
                 auth.signInWithCredential(credential)
                     .addOnCompleteListener { authTask ->
                         if (authTask.isSuccessful) {
-                            // Instead of going to Home, go to Login page
-                            Toast.makeText(this, "@string/signup_successful_login", Toast.LENGTH_SHORT).show()
+                            val user = auth.currentUser
+                            if (user != null) {
+                                val userRef = db.collection("users").document(user.uid)
+
+                                userRef.get().addOnSuccessListener { document ->
+                                    if (!document.exists()) {
+                                        val userData = hashMapOf(
+                                            "firstName" to user.displayName?.split(" ")?.firstOrNull(),
+                                            "surname" to user.displayName?.split(" ")?.getOrNull(1),
+                                            "phone" to user.phoneNumber,
+                                            "email" to user.email,
+                                            "signInMethod" to "google",
+                                            "createdAt" to FieldValue.serverTimestamp(),
+                                            "uid" to user.uid,
+                                            "profilePictureUrl" to user.photoUrl.toString()
+                                        )
+                                        userRef.set(userData)
+                                    }
+                                }
+                            }
+
+                            Toast.makeText(this, "Signup successful. Please login with Google.", Toast.LENGTH_SHORT).show()
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()
                         } else {
-                            Toast.makeText(this, "@string/signup_google_failed", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Google sign-in failed", Toast.LENGTH_LONG).show()
                         }
                     }
             } catch (e: Exception) {
-                Toast.makeText(this, "@string/signup_google_sign_in_error ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Google sign-in error: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
 
-
         googleButton.setOnClickListener {
-            // Sign out previous Google session to force account picker
             googleSignInClient.signOut().addOnCompleteListener {
                 googleSignInClient.revokeAccess().addOnCompleteListener {
                     val signInIntent = googleSignInClient.signInIntent
