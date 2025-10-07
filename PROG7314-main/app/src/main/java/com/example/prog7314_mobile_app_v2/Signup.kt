@@ -109,7 +109,7 @@ class Signup : AppCompatActivity() {
                                     "createdAt" to FieldValue.serverTimestamp(),
                                     "preferences" to mapOf(
                                         "language" to "en",
-                                        "theme" to "Light"
+                                        "theme" to "light"
                                     )
                                 )
 
