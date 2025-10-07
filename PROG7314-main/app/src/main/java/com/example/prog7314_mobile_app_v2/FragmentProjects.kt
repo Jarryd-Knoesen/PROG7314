@@ -95,6 +95,9 @@ class FragmentProjects : Fragment() {
         }
         fragmentTasks.arguments = bundle
 
+        Log.e("Project Variables Passed Over", "Project ID: ${project.projectID}")
+        Log.d("Project Variables Passed Over", "Project Name: ${project.name}")
+
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragmentTasks)
             .addToBackStack(null)

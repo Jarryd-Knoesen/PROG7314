@@ -43,7 +43,6 @@
                 android:id="@+id/tvProfileName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="John Doe"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="?attr/colorOnPrimary"
@@ -54,7 +53,6 @@
                 android:id="@+id/tvProfileEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="john.doe@example.com"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSecondary"
                 android:layout_marginBottom="24dp"/>

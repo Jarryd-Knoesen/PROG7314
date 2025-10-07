@@ -107,6 +107,10 @@ class Signup : AppCompatActivity() {
                                     "email" to email,
                                     "signInMethod" to "password",
                                     "createdAt" to FieldValue.serverTimestamp(),
+                                    "preferences" to mapOf(
+                                        "language" to "English",
+                                        "theme" to "Light"
+                                    ),
                                     "uid" to user?.uid
                                 )
 
@@ -162,6 +166,10 @@ class Signup : AppCompatActivity() {
                                             "email" to user.email,
                                             "signInMethod" to "google",
                                             "createdAt" to FieldValue.serverTimestamp(),
+                                            "preferences" to mapOf(
+                                                "language" to "English",
+                                                "theme" to "Light"
+                                            ),
                                             "uid" to user.uid,
                                             "profilePictureUrl" to user.photoUrl.toString()
                                         )

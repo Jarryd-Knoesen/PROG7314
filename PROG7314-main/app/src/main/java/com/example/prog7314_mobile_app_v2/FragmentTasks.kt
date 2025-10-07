@@ -72,7 +72,6 @@ class FragmentTasks : Fragment() {
             val fragmentOverview = FragmentTaskOverview()
             val bundle = Bundle()
             bundle.putString("projectID", projectID)
-            bundle.putString("projectName", projectName)
             fragmentOverview.arguments = bundle
 
             parentFragmentManager.beginTransaction()
@@ -142,6 +141,8 @@ class FragmentTasks : Fragment() {
                 val fragmentTaskEdit = FragmentTaskEdit()
                 val bundle = Bundle()
                 bundle.putSerializable("task", task)
+                bundle.putString("projectId", task.projectID)
+                bundle.putString("projectName", task.name)
                 fragmentTaskEdit.arguments = bundle
 
                 parentFragmentManager.beginTransaction()

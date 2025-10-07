@@ -1,5 +1,6 @@
 package com.example.prog7314_mobile_app_v2.Retrofit
 
+import com.example.prog7314_mobile_app_v2.models.UserModel
 import com.example.prog7314_mobile_app_v2.models.Users
 import retrofit2.Call
 import retrofit2.http.*
@@ -12,10 +13,10 @@ interface UsersApi {
     fun createUser(@Body user: Users): Call<Users>
 
     @GET("users/{id}")
-    fun getUserById(@Path("id") id: String): Call<Users>
+    fun getUserById(@Path("id") id: String): Call<UserModel>
 
     @PUT("users/{id}")
-    fun updateUser(@Path("id") id: String, @Body user: Users): Call<Void>
+    fun updateUser(@Path("id") id: String, @Body user: UserModel): Call<Void>
 
     @DELETE("users/{id}")
     fun deleteUser(@Path("id") id: String): Call<Void>

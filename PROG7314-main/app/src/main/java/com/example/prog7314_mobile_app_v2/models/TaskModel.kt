@@ -11,5 +11,6 @@ data class TaskModel(
     val assignedTo: String,
     val colorStatus: String,
     val status: String,
-    val dueDate: Date // or Date if you configure a date converter
+    val dueDate: Date
+// or Date if you configure a date converter
 ) : Serializable
