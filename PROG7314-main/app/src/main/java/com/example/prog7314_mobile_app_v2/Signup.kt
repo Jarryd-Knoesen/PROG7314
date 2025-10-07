@@ -112,7 +112,7 @@ class Signup : AppCompatActivity() {
                                         "theme" to "light"
                                     )
                                 )
-
+    
                                 if (user != null) {
                                     db.collection("users").document(user.uid)
                                         .set(userData)
