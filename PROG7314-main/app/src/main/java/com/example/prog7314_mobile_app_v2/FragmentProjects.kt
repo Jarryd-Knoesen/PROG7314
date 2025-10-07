@@ -66,7 +66,7 @@ class FragmentProjects : Fragment() {
         val api = ApiClient.instance.create(ProjectsApi::class.java)
         val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
-        api.getUserProjects(currentUserUid).enqueue(object : Callback<List<ProjectModel>> {
+        api.getAllProjects().enqueue(object : Callback<List<ProjectModel>> {
             override fun onResponse(call: Call<List<ProjectModel>>, response: Response<List<ProjectModel>>) {
                 if (response.isSuccessful) {
                     val projects = response.body()
@@ -109,12 +109,34 @@ class FragmentProjects : Fragment() {
                         getString(R.string.delete_project_message_part_2)
             )
             .setPositiveButton(getString(R.string.delete_project_button_yes)) { _, _ ->
-                projectsList.removeIf { it.projectID == project.projectID }
-                adapter.updateProjects(projectsList)
+                deleteProjectFromApi(project)
             }
             .setNegativeButton(getString(R.string.delete_project_button_no)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
     }
+
+    private fun deleteProjectFromApi(project: ProjectModel) {
+        val api = ApiClient.instance.create(ProjectsApi::class.java)
+
+        api.deleteProject(project.projectID).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    // Remove project from local list
+                    projectsList.removeIf { it.projectID == project.projectID }
+                    adapter.updateProjects(projectsList)
+                    Log.d("API_SUCCESS", "Deleted project ${project.projectID}")
+                } else {
+                    Log.e("API_ERROR", "Failed to delete project: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("API_FAILURE", "Error deleting project: ${t.message}")
+            }
+        })
+    }
+
+
 }

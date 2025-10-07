@@ -9,6 +9,6 @@ data class ProjectModel(
     val projectID: String,
     val name: String,
     val description: String,
-    val members: List<String>,
+    val memberUids: List<String>,
     val createdAt: Date? // Nullable now
 ) : Serializable
