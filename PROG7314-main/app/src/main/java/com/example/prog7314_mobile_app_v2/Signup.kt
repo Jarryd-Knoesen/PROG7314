@@ -110,8 +110,7 @@ class Signup : AppCompatActivity() {
                                     "preferences" to mapOf(
                                         "language" to "English",
                                         "theme" to "Light"
-                                    ),
-                                    "uid" to user?.uid
+                                    )
                                 )
 
                                 if (user != null) {
@@ -167,7 +166,7 @@ class Signup : AppCompatActivity() {
                                             "signInMethod" to "google",
                                             "createdAt" to FieldValue.serverTimestamp(),
                                             "preferences" to mapOf(
-                                                "language" to "English",
+                                                "language" to "en",
                                                 "theme" to "Light"
                                             ),
                                             "uid" to user.uid,
