@@ -1,5 +1,6 @@
 package com.example.prog7314_mobile_app_v2
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
@@ -11,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
@@ -138,18 +140,32 @@ class Signup : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
-
-        // =====================================
-        // 🔸 GOOGLE SIGNUP
-        // =====================================
+// =====================================
+// 🔸 GOOGLE SIGNUP
+// =====================================
         val googleSignInLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
+
+            // Check if the sign-in was canceled or result data is null
+            if (result.resultCode != Activity.RESULT_OK || result.data == null) {
+                Toast.makeText(this, "Google sign-in canceled or failed", Toast.LENGTH_LONG).show()
+                return@registerForActivityResult
+            }
+
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             try {
-                val account = task.result
-                val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                // Use getResult(ApiException::class.java) to handle sign-in errors
+                val account = task.getResult(ApiException::class.java)
 
+                // Check if idToken is null
+                val idToken = account.idToken
+                if (idToken.isNullOrEmpty()) {
+                    Toast.makeText(this, "Google sign-in failed: idToken is null", Toast.LENGTH_LONG).show()
+                    return@registerForActivityResult
+                }
+
+                val credential = GoogleAuthProvider.getCredential(idToken, null)
                 auth.signInWithCredential(credential)
                     .addOnCompleteListener { authTask ->
                         if (authTask.isSuccessful) {
@@ -182,10 +198,15 @@ class Signup : AppCompatActivity() {
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()
                         } else {
-                            Toast.makeText(this, "Google sign-in failed", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Firebase sign-in failed: ${authTask.exception?.message}", Toast.LENGTH_LONG).show()
                         }
                     }
+
+            } catch (e: ApiException) {
+                // Gives the specific Google Sign-In error code
+                Toast.makeText(this, "Google sign-in failed: ${e.statusCode}", Toast.LENGTH_LONG).show()
             } catch (e: Exception) {
+                // Catch any other unexpected errors
                 Toast.makeText(this, "Google sign-in error: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
