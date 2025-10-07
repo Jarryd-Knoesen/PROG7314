@@ -108,7 +108,7 @@ class Signup : AppCompatActivity() {
                                     "signInMethod" to "password",
                                     "createdAt" to FieldValue.serverTimestamp(),
                                     "preferences" to mapOf(
-                                        "language" to "English",
+                                        "language" to "en",
                                         "theme" to "Light"
                                     )
                                 )
